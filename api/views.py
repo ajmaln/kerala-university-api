@@ -27,7 +27,7 @@ def scrap_data():
 
 def results_view(request=None, scrap=False):
     try:
-        json_data = Data.objects.latest()
+        json_data = Data.objects.latest().json_data
         if scrap:
             json_data = scrap_data()
 
