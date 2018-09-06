@@ -18,21 +18,33 @@ def link_and_text(each):
         }
 
 
-def results_view(request=None):
+def scrap_data():
     page = requests.get("https://exams.keralauniversity.ac.in/Login/check8")
-    
     parsed = BeautifulSoup(page.content, 'html.parser')
-
     data = filter(lambda x: x!=None, map(link_and_text, parsed.find_all('tr')))
+    return json.dumps(list(data)[1:-1])
 
-    json_data = json.dumps(list(data)[1:-1])
 
-    if(request):
-        response = HttpResponse(json_data, status=200, content_type='application/json')
-        response["Access-Control-Allow-Origin"] = "*"
-        return response
-    else:
-        return json_data
+def results_view(request=None, scrap=False):
+    try:
+        json_data = Data.objects.latest()
+        if scrap:
+            json_data = scrap_data()
+
+        if request:
+            response = HttpResponse(json_data, status=200, content_type='application/json')
+            response["Access-Control-Allow-Origin"] = "*"
+            return response
+        else:
+            return json_data
+    except Data.DoesNotExist:
+        json_data = scrap_data();
+        if request:
+            response = HttpResponse(json_data, status=200, content_type='application/json')
+            response["Access-Control-Allow-Origin"] = "*"
+            return response
+        else:
+            return json_data
 
 
 def scan_for_change(request=None):

@@ -4,3 +4,12 @@ venv/
 
 # Vscode
 .vscode/
+
+KeralaUniversityApi/static/
+KeralaUniversityApi/staticfiles/
+
+db.sqlite3
+
+
+# Env
+.env

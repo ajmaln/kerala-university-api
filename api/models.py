@@ -5,7 +5,7 @@ from django.db import models
 
 class Data(models.Model):
     json_data = models.CharField(max_length=10000000)
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         get_latest_by = 'created_at'
