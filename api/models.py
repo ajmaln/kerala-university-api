@@ -6,6 +6,7 @@ from django.db import models
 class Data(models.Model):
     json_data = models.CharField(max_length=10000000)
     created_at = models.DateTimeField(auto_now=True)
+    type = models.CharField(max_length=20)
 
     class Meta:
         get_latest_by = 'created_at'

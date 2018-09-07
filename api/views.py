@@ -27,7 +27,7 @@ def scrap_data():
 
 def results_view(request=None, scrap=False):
     try:
-        json_data = Data.objects.latest().json_data
+        json_data = Data.objects.filter(type='results').latest().json_data
         if scrap:
             json_data = scrap_data()
 
@@ -49,7 +49,7 @@ def results_view(request=None, scrap=False):
 
 def scan_for_change(request=None):
     # Fetch and parse webpage
-    old_data = Data.object.latest()
+    old_data = Data.objects.latest()
     new_data = results_view()
 
     # Analyze for change

@@ -9,12 +9,15 @@ class Command(BaseCommand):
         latest = None
         try:
             latest = Data.objects.latest()
+            # Check for change
+
             if data == latest.json_data:
                 self.stdout.write("No Change")
             else:
                 # For now
                 latest.json_data = data
                 latest.save()
+                # --- Notification Logic here ---
                 self.stdout.write('Changed, sending notifications')
         except Data.DoesNotExist:
             latest = Data.objects.create(json_data=data)
