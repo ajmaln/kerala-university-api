@@ -6,6 +6,7 @@ from .models import Data
 from bs4 import BeautifulSoup
 import requests
 import json
+from .fcm import get_details
 
 # Create your views here.
 
@@ -63,3 +64,5 @@ def scan_for_change(request=None):
 
     # Notify if changed
     # Notification Logic
+
+
